@@ -1,0 +1,35 @@
+<!--logs.wxml-->
+<button bindtap="logout" class="logoutbtn">退出当前登录</button>
+<view wx:if="{{islogin}}" wx:key="this">
+	<view wx:if="{{!logs}}" class="tipwindow" wx:key="this">
+		<image src="https://6479-dylhsh-fkglxt-fk-1302766816.tcb.qcloud.la/images/info.png?sign=7ad2bd5684f5c154a006d5071d5a0502&t=1596252592" class="icone"></image>
+		<view class="tip"> 没有查询到您的相关申请记录</view>
+	</view>
+	<view wx:if="{{logs}}" wx:key="this">
+		<view class="borderall" wx:for="{{logs}}" wx:for-item="i" wx:key="this">
+			<view class="center font24 newest">{{i.rcsy}}</view>
+			<view class="center">
+				<view class="newest">
+					<view class="newest line30 left30 mtop10">时间：{{i.lfrq}}</view>
+					<view class="line30 left30">接洽人：{{i.jqbm}}-{{i.jqr}}</view>
+				</view>
+				<view class="toflex" wx:if="{{i.sfqylf==1}}" wx:key="this">
+					<image src="https://6479-dylhsh-fkglxt-fk-1302766816.tcb.qcloud.la/images/ok.png?sign=90dfb370439e28a00160b8bf74f14a26&t=1596252080" class="icon"></image>
+					<view class="line30"> 审批通过</view>
+				</view>
+				<view class="toflex" wx:if="{{i.sfqylf==0}}" wx:key="this">
+					<image src="https://6479-dylhsh-fkglxt-fk-1302766816.tcb.qcloud.la/images/info.png?sign=7ad2bd5684f5c154a006d5071d5a0502&t=1596252592" class="icon"></image>
+					<view class="line30"> 请耐心等待，如需提醒请联系接洽人</view>
+				</view>
+				<view class="toflex" wx:if="{{i.sfqylf==2}}" wx:key="this">
+					<image src="https://6479-dylhsh-fkglxt-fk-1302766816.tcb.qcloud.la/images/error.png?sign=db7e2aae3fdcd47c8da4048ee8fbab7e&t=1596252609" class="icon"></image>
+					<view class="line30"> 审批未通过，请联系接洽人</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>
+<view class="tipwindow" wx:if="{{!islogin}}" wx:key="this">
+	<image src="https://6479-dylhsh-fkglxt-fk-1302766816.tcb.qcloud.la/images/error.png?sign=db7e2aae3fdcd47c8da4048ee8fbab7e&t=1596252609" class="icone"></image>
+	<view class="tip"> 请登录后操作！</view>
+</view>

@@ -1,0 +1,28 @@
+<!--pages/login/login.wxml-->
+<view>
+<view class="box">
+  <view class="title">联合石化综合服务大厅</view>
+</view>
+<form bindsubmit="login">
+  <view class="logintitle"><text class="str1">用户登录</text></view>
+  <input class="inputwindow" placeholder="请输入用户名" name="username"></input>
+  <input class="inputwindow" placeholder="请输入密码" name="password" password="true"></input>
+  <text wx:if="{{info}}" class="info">{{info}}</text>
+  <button class="loginbtn" form-type="submit">点击登录</button>
+</form>
+<view class="toflex top20">
+  <view class="lefttip" bindtap="zhmm">忘记密码</view>
+  <view class="righttip" bindtap="reguser">没有用户,现在注册</view>
+</view>
+<view class="bottom20 width100">
+    <view class="tocenter toflex height60 width100">
+      <view class="leftline width50"></view>
+        <view bindtap="qywxlogin">
+                <image src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAbwSURBVFhH7VhrUJRVGH4+YQFhYQGFlItgYoogWqCimGamQmWMaeMNa9Qujv5Sxxk1a2zsMpXlTI1OZY2ppE42WtaM5IUQQg1QNLnMkKKoKPeLLJfdhd3e9yzfurvssruKDT96Zz7Y/c4573nO817PSgYS9GMZ0I+xCWj9HqDkrIk1XW0obDyB8pZLaNRVoVOvgZebL4Z4Dcdw5XjEBcx4JMboFaBW34H08i34tfJLVLZpCRDgJhHt9LCw8+rpTxc9HV1ArH84Fke+i9lDX+8zsHYBflj0Mo7eOgpfBeBJjuDuwBk41Drpae2kuXSATbHfEtCVDw20B8Cye3lYfm6SYGsgPTraVEPsMGve9F3qZs96Z52eANKjoIPw3EYtMxqFbyb981AgLXg5XbUXi/+cBH8PAuNObBCwCJ8obIndgzeitqJZR2a1kZQaNECkzyikhq+E0l2Jdlo3yBPkr1eRnGnnRE7CNjH4V90xrMpLRehAI0vMWozqKexIuGBSda3lIpadjReby9JETG2O+QopoW+Z3m2+NAP59VnCCqyH/fb4sw+WbgVAvaELiRnuCPa6b0I20aGpJQjzjrY46ys5SrTqWuFG3HeRSX0UShx+uqUHH5MzJAwmfSxt5JdxAfHYEV/gJG/3pwkTr8kfK8xq7V96AyGwFibCzGqS+RezueYr2V3O1l7A5cZM1wE2aqpQUF8KTzKHuXCA7L661uJdUdMZ3Gkn9roBMouVbS240pRlMe9c7RFhXhZOQ1pCy/o+Kp7vMkC3sSuUW4ubz8DDKo1wWilrKUdp8yka80LGna/xftEaBFoxzUB+vLkXQZ4qMmkYTlbtwduXV4i0xEHlQeOj/cbjycCp8FMMxvTHlpKlnA8caW1BgqGkuUCkB1vCTs4MMGvMgi3dHNmc/zjq+f+EwFAsooSdHPKmy4xZL5DmZXkatFS2XDhUT7ckgBxUo1UR2BZ3CiHeUaY5ubU/obDhBCpai4nRGvFepQimtBRLrM7GlKDezS7N/UOiKDY8MEBmr7qDUk3sdswLXy8ANGqr8FlJGpn7tHAdfsxLpFwe2TL8zBoyE+vHpCPAY0iPw0sLcwIMLbpGU311xSYyuANJ+RjplyCWbi9ZgkMVB2kzY4l0ZBnWoSGQbIGFEYuxYcwBCwjSxsJphosN2T2CxBFQzjbV7cCuib9hwqAXxPSFOf6o6miGL6UVHmd22LU5UKxFBsbv+SAsavJffw8Ffp5OaLtlQELg89CSc7sqnHyXRL5qAjc/eyDqNc0UqUZw3N0kh6RRgp4s2DEXBscRPi34JUwPThWfWbgxUXfq6KAq03RRSRKOS9TXOTaHvIo3aKBNz84xlq/PS5fhl9vpRnDdAZPbPcbj+6ll21P+AXyIWZZmWrtzYhbG+k8X369Qfl2T9wxU5BYs9whwalga1kXvN3bUC4YtQJsLLHIzsCjC2Epp9O04cCNdmJWFe8NRfsPMCaM6vUrUZFnY52Rw/I4/8ztZWBfr7DJ0GgFujDksWiWurc4IK0sJMTYHe69tEszJwcCt1nX1TQs1uTWHLXyc+8UmrTHlsFSoiyzyMOtinYdubIOpm6nXVCIlM0wUeLmU2QNbS2nlfLLRvGm5wajT1FpswMER5BmM5SM+Rtm9fOy/vsuiAjHLLKtHfkGtmRo7yzYL88udOo9xf/mE37j7APllTUcF5p2JFL2gXEttgeS8l9cNMOl3SaQU63TCG3Cg2KtADLKdAo3XcYUyB8d7si8rBigsb3XBXhFg5470eVw4sj0xr6Tc5tsSLp0clXxYW7mQgStp3Jo5c116ygc2K/DuxGt4bcQ60cfJp+HsLwsrb9DcFV+5eXXSde2f2MYI6wz0GGr/XlzYcFKYR00hzw0As1ZDpuWcxlGcVfODUJsQOEf4S18L64z1n2bpg+abjDomIYgCZuWIDeTsn4ghvhtz21+nvU3gFUiiQs+NwOr8ORhsdg3oC7B1dM/5PvG8bYBHbn1KPlhrAuZow/nZ3sRyu92WzdF663Fmz1fhQ1cJtX0GXVHaoL2LmadCTBcuV9Zaz2Vf5yyR+VytaHD75LcZdubvEjNwl5oHOcc9CEgGV0U69k3JEeBYnP5txpkNb7WWYmnuGNHu93bJt6WLSyEHY3rSJfqtZ5xpSp8wKGsL94lG9mwDXgxdJiK+hTIAVxVbl31+J5dWnhOjihc52Bwc6+1TgDLQddH7kJdiwKqR7yFKGUO/hgFcHuspMvnhz3zh9/PwpzJpvNxHKuNsGqlPTdybG3TqdWjSVRMjbhShgyjijb3VdfXfeOfyLEpXNSie27Ms/WcAHflwdvVByrvDEK1KspjabwDaO8Aj8UFHbLky/j9AV9iyNfdfxyO6RcNH9XMAAAAASUVORK5CYII=" alt=""></image>
+                <view>快捷</view>
+                <view>登录</view>
+        </view>
+    <view class="righttline width50"></view>
+    </view>
+</view>
+</view>

@@ -1,0 +1,51 @@
+<!--index.wxml-->
+<view class="h100" wx:if="{{islogin}}" wx:key="this">
+	<view class="banner">
+		欢迎使用联合石化访客系统
+	</view>
+
+	<view class="card">
+		<view class="usericon">
+			<open-data type="userAvatarUrl"></open-data>
+		</view>
+		<view class="userid">ID:{{islogin.userinfo.id}}</view>
+		{{timestr}}
+		<open-data type="userNickName"></open-data>
+	</view>
+
+	<view class="bodywindow">
+		<view class="center">
+			<button class="newbtn" bindtap="new_fksq">访客申请</button>
+		</view>
+		<view wx:if="{{newest}}" wx:key="this">
+			<view class="borderall">
+				<view class="center font24 newest">最新申请审批记录</view>
+				<view class="center">
+					<view class="newest">
+						<view class="newest line30 left30 mtop10">时间：{{newest.lfrq}}</view>
+						<view class="line30 left30">接洽人：{{newest.jqbm}}-{{newest.jqr}}</view>
+					</view>
+					<view class="toflex" wx:if="{{newest.sfqylf==1}}" wx:key="this">
+						<image src="https://6479-dylhsh-fkglxt-fk-1302766816.tcb.qcloud.la/images/ok.png?sign=90dfb370439e28a00160b8bf74f14a26&t=1596252080" class="icon"></image>
+						<view class="line30"> 审批通过</view>
+					</view>
+					<view class="toflex" wx:if="{{newest.sfqylf==0}}" wx:key="this">
+						<image src="https://6479-dylhsh-fkglxt-fk-1302766816.tcb.qcloud.la/images/info.png?sign=7ad2bd5684f5c154a006d5071d5a0502&t=1596252592" class="icon"></image>
+						<view class="line30"> 请耐心等待，如需提醒请联系接洽人</view>
+					</view>
+					<view class="toflex" wx:if="{{newest.sfqylf==2}}" wx:key="this">
+						<image src="https://6479-dylhsh-fkglxt-fk-1302766816.tcb.qcloud.la/images/error.png?sign=db7e2aae3fdcd47c8da4048ee8fbab7e&t=1596252609" class="icon"></image>
+						<view class="line30"> 审批未通过，请联系接洽人</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view class="center">
+			<button class="newbtn" bindtap="reflush">刷新状态</button>
+		</view>
+	</view>
+</view>
+<view class="error toflex" wx:if="{{!islogin}}" wx:key="this">
+	<image src="https://6479-dylhsh-fkglxt-fk-1302766816.tcb.qcloud.la/images/error.png?sign=db7e2aae3fdcd47c8da4048ee8fbab7e&t=1596252609" class="icon"></image>
+	<view class="line30"> 请登录后操作！</view>
+</view>

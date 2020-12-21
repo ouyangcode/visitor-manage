@@ -1,0 +1,41 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/mine/mine",
+    "pages/fksp/fksp",
+    "pages/first/first",
+    "pages/zhmm/zhmm",
+    "pages/reguser/reguser",
+    "pages/yhxy/yhxy",
+    "pages/fwdt/fwdt",
+    "pages/mineinfo/mineinfo",
+    "pages/sysinfo/sysinfo",
+    "pages/about/about",
+    "pages/resetpass/resetpass"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#8AAFB7",
+    "navigationBarTitleText": "综合服务大厅",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#11cd6e",
+    "borderStyle": "white",
+    "list": [
+      {
+        "iconPath": "pages/icon/s2.png",
+        "selectedIconPath": "pages/icon/s1.png",
+        "pagePath": "pages/fwdt/fwdt",
+        "text": "服务大厅"
+      },
+      {
+        "iconPath": "pages/icon/m2.png",
+        "selectedIconPath": "pages/icon/m1.png",
+        "pagePath": "pages/mine/mine",
+        "text": "我的"
+      }]
+  },
+  "sitemapLocation": "sitemap.json"
+}

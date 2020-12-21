@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>数据可视化</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+
+
+</head>
+<body>
+<!--  <div class="layui-fluid">-->
+<!--    <div class="layui-row layui-col-space15">-->
+          <div class="layui-col-md12" id="main">
+            <div class="layui-card">
+              <div class="layui-card-body" style="background-image: url('images/sjbg.jpg');background-size: cover;background-repeat: repeat;color: white">
+                  <div class="layui-row" style="font-size: 22px;font-weight: bolder;">
+                      <div class="layui-col-md4" style="height: 80px;">
+                          <div style="display: flex;justify-content: center">
+                              <div>
+                                  <div style="text-align: center;line-height: 40px">昨日访客</div>
+                                  <div id="zrfknum" style="text-align: center;line-height: 40px"></div>
+                              </div>
+                              <div id="zrfkbhs">
+
+                              </div>
+                          </div>
+                      </div>
+                      <div class="layui-col-md4" style="height: 80px">
+                          <div style="display: flex;justify-content: center">
+                              <div>
+                                  <div style="text-align: center;line-height: 40px">昨日完成访客流程</div>
+                                  <div id="zrwcfklcnum" style="text-align: center;line-height: 40px"></div>
+                              </div>
+                              <div id="zrwcfklcbhs">
+
+                              </div>
+                          </div>
+                      </div>
+                      <div class="layui-col-md4" style="height: 80px">
+                          <div style="display: flex;justify-content: center">
+                              <div>
+                                  <div style="text-align: center;line-height: 40px">平台服务次数</div>
+                                  <div id="ptfwcsnum" style="text-align: center;line-height: 40px"></div>
+                              </div>
+                              <div id="ptfwcsbhs">
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="layui-row" style="font-size: 22px;font-weight: bolder;margin-top: 20px;">
+                      <div class="layui-col-md6" style="height: 80px">
+                          <div style="display: flex;justify-content: center">
+                              <div>
+                                  <div style="text-align: center;line-height: 40px">内部用户数</div>
+                                  <div id="nbyhs" style="text-align: center;line-height: 40px"></div>
+                              </div>
+                              <div id="nhyhsbhs">
+
+                              </div>
+                          </div>
+                      </div>
+                      <div class="layui-col-md6" style="height: 80px">
+                          <div style="display: flex;justify-content: center">
+                              <div>
+                                  <div style="text-align: center;line-height: 40px">外部用户数</div>
+                                  <div id="wbyhsnum" style="text-align: center;line-height: 40px"></div>
+                              </div>
+                              <div id="wbyhsbhs">
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <hr>
+                  <div class="layui-row" style="margin-top: 20px;">
+                      <div class="layui-col-md12" id="mrfktjy" style="height: 300px"></div>
+                  </div>
+                  <div class="layui-row" style="margin-top: 20px;">
+                      <div class="layui-col-md12" id="mmrwclctjt" style="height: 300px"></div>
+                  </div>
+                  <div class="layui-row" style="margin-top: 20px;">
+                      <div class="layui-col-md6" id="yhdbt" style="height: 300px"></div>
+                      <div class="layui-col-md6" id="fkdft" style="height: 300px"></div>
+                  </div>
+              </div>
+            </div>
+          </div>
+<!--    </div>-->
+<!--  </div>-->
+  <script src="../../js/echarts.js"></script>
+  <script src="../../js/jquery.js"></script>
+  <script src="../../layuiadmin/layui/layui.js?t=1"></script>  
+  <script>
+  layui.config({
+    base: '../../layuiadmin/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'console']);
+  </script>
+<script>
+    var datav;
+    $.ajax({
+        url:"/getdatav",
+        data:{},
+        type:"post",
+        dataType:"json",
+        async: false,
+        success: function (result) {
+            datav=JSON.parse(JSON.stringify(result));
+        },
+        error:function (e) {
+            console.log(e)
+        }
+    })
+    var zrfks = parseInt(datav.zrfks);
+    var rqfks = parseInt(datav.rqfks);
+    var zrwclcs = parseInt(datav.zrwclcs);
+    var qrwclcs = parseInt(datav.qrwclcs);
+    var zrptfwcs = parseInt(datav.zrptfwcs);
+    var qrptfwcs = parseInt(datav.qrptfwcs);
+    var zrnbyhs = parseInt(datav.zrnbyhs);
+    var qrnbyhs = parseInt(datav.qrnbyhs);
+    var zrwbyhs = parseInt(datav.zrwbyhs);
+    var qrwbyhs = parseInt(datav.qrwbyhs);
+    var mrfklist = datav.mrfklist;
+    var mrwclclist = datav.mrwclclist;
+    var dfywdfklist = datav.dfywdfklist;
+    document.getElementById("zrfknum").innerHTML=zrfks;
+    if (zrfks-rqfks>0){
+        document.getElementById("zrfkbhs").innerHTML="<div style='color: red;line-height: 80px'>↑"+parseInt(zrfks-rqfks)+"</div>";
+    }else if ((zrfks-rqfks)==0){
+        document.getElementById("zrfkbhs").innerHTML="<div style='color: gray;line-height: 80px'>无变化</div>";
+    }else {
+        document.getElementById("zrfkbhs").innerHTML="<div style='color: green;line-height: 80px'>↓"+parseInt(zrfks-rqfks)+"</div>";
+    }
+
+    document.getElementById("zrwcfklcnum").innerHTML=zrwclcs;
+    if (zrwclcs-qrwclcs>0){
+        document.getElementById("zrwcfklcbhs").innerHTML="<div style='color: red;line-height: 80px'>↑"+parseInt(zrwclcs-qrwclcs)+"</div>";
+    }else if ((zrwclcs-qrwclcs)==0){
+        document.getElementById("zrwcfklcbhs").innerHTML="<div style='color: gray;line-height: 80px'>无变化</div>";
+    }else {
+        document.getElementById("zrwcfklcbhs").innerHTML="<div style='color: green;line-height: 80px'>↓"+parseInt(zrwclcs-qrwclcs)+"</div>";
+    }
+
+    document.getElementById("ptfwcsnum").innerHTML=zrptfwcs;
+    if (zrptfwcs-qrptfwcs>0){
+        document.getElementById("ptfwcsbhs").innerHTML="<div style='color: red;line-height: 80px'>↑"+parseInt(zrptfwcs-qrptfwcs)+"</div>";
+    }else if ((zrptfwcs-qrptfwcs)==0){
+        document.getElementById("ptfwcsbhs").innerHTML="<div style='color: gray;line-height: 80px'>无变化</div>";
+    }else {
+        document.getElementById("ptfwcsbhs").innerHTML="<div style='color: green;line-height: 80px'>↓"+parseInt(zrptfwcs-qrptfwcs)+"</div>";
+    }
+
+    document.getElementById("nbyhs").innerHTML=zrnbyhs;
+    if (zrnbyhs-qrnbyhs>0){
+        document.getElementById("nhyhsbhs").innerHTML="<div style='color: red;line-height: 80px'>↑"+parseInt(zrnbyhs-qrnbyhs)+"</div>";
+    }else if ((zrnbyhs-qrnbyhs)==0){
+        document.getElementById("nhyhsbhs").innerHTML="<div style='color: gray;line-height: 80px'>无变化</div>";
+    }else {
+        document.getElementById("nhyhsbhs").innerHTML="<div style='color: green;line-height: 80px'>↓"+parseInt(zrnbyhs-qrnbyhs)+"</div>";
+    }
+
+    document.getElementById("wbyhsnum").innerHTML=zrwbyhs;
+    if (zrwbyhs-qrwbyhs>0){
+        document.getElementById("wbyhsbhs").innerHTML="<div style='color: red;line-height: 80px'>↑"+parseInt(zrwbyhs-qrwbyhs)+"</div>";
+    }else if ((zrwbyhs-qrwbyhs)==0){
+        document.getElementById("wbyhsbhs").innerHTML="<div style='color: gray;line-height: 80px'>无变化</div>";
+    }else {
+        document.getElementById("wbyhsbhs").innerHTML="<div style='color: green;line-height: 80px'>↓"+parseInt(zrwbyhs-qrwbyhs)+"</div>";
+    }
+    //每日访客统计图绘制开始
+    var mrfktjtcharts = echarts.init(document.getElementById('mrfktjy'));
+    var date = [];
+    var data = [];
+    var mrfklistsize = mrfklist.length;
+    $.each(mrfklist,function(i, item){
+        date.push(mrfklist[mrfklistsize-1-i].date);
+        data.push(mrfklist[mrfklistsize-1-i].num);
+    })
+
+    mrfktjtcharts.setOption(option = {
+        tooltip: {
+            trigger: 'axis',
+            position: function (pt) {
+                return [pt[0], '10%'];
+            }
+        },
+        title: {
+            left: 'center',
+            text: '每日访客统计图',
+            subtext:date[0]+'~~'+date[mrfklistsize-1],
+            textStyle:{
+                color:'#fff'
+            }
+        },
+        toolbox: {
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: date
+        },
+        yAxis: {
+            type: 'value',
+            boundaryGap: [0, '100%']
+        },
+        dataZoom: [{
+            type: 'inside',
+            start: 0,
+            end: 100
+        }, {
+            start: 0,
+            end: 10,
+            handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+            handleSize: '80%',
+            handleStyle: {
+                color: '#fff',
+                shadowBlur: 3,
+                shadowColor: 'rgba(0, 0, 0, 0.6)',
+                shadowOffsetX: 2,
+                shadowOffsetY: 2
+            }
+        }],
+        series: [
+            {
+                name: '访客数',
+                type: 'line',
+                smooth: true,
+                symbol: 'none',
+                sampling: 'average',
+                itemStyle: {
+                    color: 'rgb(255, 70, 131)'
+                },
+                areaStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgb(255, 158, 68)'
+                    }, {
+                        offset: 1,
+                        color: 'rgb(255, 70, 131)'
+                    }])
+                },
+                data: data
+            }
+        ]
+    })
+    //end
+    //每日完成流程统计图绘制开始
+    var mmrwclctjtcharts = echarts.init(document.getElementById('mmrwclctjt'));
+    var mrwclclistsize = mrwclclist.length;
+    var jdataa =[];
+    var jdatab =[];
+    $.each(mrwclclist,function(i, item){
+        jdataa.push(mrwclclist[mrwclclistsize-1-i].date);
+        jdatab.push(mrwclclist[mrwclclistsize-1-i].num);
+    })
+    mmrwclctjtcharts.setOption(option = {
+        title: {
+            left: 'center',
+            text: '每日完成流程统计图',
+            subtext:jdataa[0]+'~~'+jdataa[mrwclclistsize-1],
+            textStyle:{
+                color:'#fff'
+            }
+        },
+        tooltip: {
+            trigger: 'axis',
+            textStyle:{
+                color:'#fff'
+            }
+        },
+        xAxis: {
+            data: jdataa
+        },
+        yAxis: {
+            splitLine: {
+                show: false
+            }
+        },
+        toolbox: {
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        dataZoom: [{
+            startValue: jdataa[0]
+        }, {
+            type: 'inside'
+        }],
+        visualMap: {
+            top: 50,
+            right: 10,
+            pieces: [{
+                gt: 0,
+                lte: 20,
+                color: '#096'
+            }, {
+                gt: 20,
+                lte: 40,
+                color: '#ffde33'
+            }, {
+                gt: 40,
+                lte: 60,
+                color: '#ff9933'
+            }, {
+                gt: 60,
+                lte: 80,
+                color: '#cc0033'
+            }, {
+                gt: 80,
+                lte: 100,
+                color: '#660099'
+            }, {
+                gt: 100,
+                color: '#7e0023'
+            }],
+            color:'#28B3F4',
+            outOfRange: {
+                color: '#fff'
+            },
+            textStyle:{
+                color:'#fff'
+            }
+        },
+        series: {
+            name: '流程数',
+            type: 'line',
+            data: jdatab,
+            markLine: {
+                silent: true,
+                data: [{
+                    yAxis: 20
+                }, {
+                    yAxis: 40
+                }, {
+                    yAxis: 60
+                }, {
+                    yAxis: 80
+                }, {
+                    yAxis: 100
+                }]
+            }
+        }
+    });
+    //end
+    //访客与到访统计图绘制开始
+    var yhdbtcharts = echarts.init(document.getElementById("yhdbt"));
+    var dfywdfklistsize = dfywdfklist.length;
+    var xAxisData = [];
+    var data1 = [];
+    var data2 = [];
+    $.each(dfywdfklist,function(i, item){
+        xAxisData.push(mrwclclist[dfywdfklistsize-1-i].date);
+        data1.push(dfywdfklist[dfywdfklistsize-1-i].dfnum);
+        data2.push(dfywdfklist[dfywdfklistsize-1-i].wdnum);
+    })
+
+    yhdbtcharts.setOption(option = {
+        title: {
+            left: 'center',
+            text: '到访访客与未到访客统计图',
+            subtext:xAxisData[0]+'~~'+xAxisData[dfywdfklistsize-1],
+            textStyle:{
+                color:'#fff'
+            }
+        },
+        legend: {
+            left:'left',
+            data: ['到访访客','未到访客']
+        },
+        toolbox: {
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        tooltip: {},
+        xAxis: {
+            data: xAxisData,
+            splitLine: {
+                show: false
+            }
+        },
+        yAxis: {
+        },
+        series: [{
+            name: '到访访客',
+            type: 'bar',
+            data: data1,
+            animationDelay: function (idx) {
+                return idx * 30;
+            }
+        },
+            {
+                name: '未到访客',
+                type: 'bar',
+                data: data2,
+                animationDelay: function (idx) {
+                    return idx * 30;
+                }
+            }],
+        animationEasing: 'elasticOut'
+    })
+    //end
+    //用户构成统计图绘制开始
+    var fkdftcharts = echarts.init(document.getElementById('fkdft'));
+    fkdftcharts.setOption(option = {
+        title: {
+            left: 'center',
+            text: '用户构成统计图',
+            subtext:'截止昨日数据',
+            textStyle:{
+                color:'#fff'
+            }
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b}: {c} ({d}%)'
+        },
+        toolbox: {
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        legend: {
+            orient: 'vertical',
+            left: 10,
+            data: ['内部用户', '外部用户']
+        },
+        series: [
+            {
+                name: '人数',
+                type: 'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    label: {
+                        show: true,
+                        fontSize: '30',
+                        fontWeight: 'bold'
+                    }
+                },
+                labelLine: {
+                    show: false
+                },
+                data: [
+                    {value: zrnbyhs, name: '内部用户'},
+                    {value: zrwbyhs, name: '外部用户'}
+                ]
+            }
+        ]
+    })
+    //end
+</script>
+  <script>
+
+  </script>
+  <script>
+
+  </script>
+</body>
+</html>
+

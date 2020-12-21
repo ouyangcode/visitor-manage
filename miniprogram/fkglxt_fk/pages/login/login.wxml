@@ -1,0 +1,7 @@
+<!--pages/login/login.wxml-->
+<view>
+<view class="title">联合石化访客管理系统</view>
+<view class="usericon"><open-data type="userAvatarUrl"></open-data></view>
+<view class="username">你好，<open-data type="userNickName"></open-data></view>
+<button bindtap="login" class="loginbtn">访客申请</button>
+</view>

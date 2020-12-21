@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fline.mapper.CommonMapper">
+  <select id="getdatavById" parameterType="java.lang.Integer" resultType="java.util.Map">
+    select 
+    *
+    from datav
+    where id = #{id}
+  </select>
+
+  <select id="getdatavList" resultType="java.util.Map">
+    select * from datav order by tjrq desc
+  </select>
+
+  <insert id="insdatav" parameterType="java.util.Map">
+    insert into  datav (zrfknum,nbunum,wbunum,servernum,tjrq,closeflownum,dffknum,wdfknum)
+    values(#{zrfknum},#{nbunum},#{wbunum},#{servernum},#{tjrq},#{closeflownum},#{dffknum},#{wdfknum})
+  </insert>
+
+</mapper>

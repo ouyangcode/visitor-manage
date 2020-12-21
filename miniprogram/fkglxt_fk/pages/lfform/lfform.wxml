@@ -1,0 +1,68 @@
+<!--pages/lfform/lfform.wxml-->
+<view wx:if="{{islogin}}" wx:key="this">
+	<view class="window" wx:if="{{!instrue}}" wx:key="this">
+		<view class="title">请填写如下表单</view>
+		<form bindsubmit="sublfform">
+			<view><text>*</text>号为必填项</view>
+			<view class="section">
+				<view class="section__title"><text>*</text>来访日期：</view>
+				<picker mode="date" value="{{lfrqstr}}" start="2020-08-01" name="lfrq" bindchange="bindDateChange">
+					<view class="section__text">
+						{{lfrqstr}}
+					</view>
+				</picker>
+			</view>
+			<view class="section">
+				<view class="section__title">客户单位：</view>
+				<input name="khdw" class="section__text"></input>
+			</view>
+			<view class="section">
+				<view class="section__title">车牌号：</view>
+				<input name="cph" class="section__text"></input>
+			</view>
+			<view class="section">
+				<view class="section__title"><text>*</text>客户姓名：</view>
+				<input name="khxm" class="section__text"></input>
+			</view>
+			<view class="section">
+       <view class="section__title"><text>请注意：请携带与填写身份信息一致的身份证件作为入场唯一凭证</text></view>
+				<view class="section__title"><text>*</text>身份证号：</view>
+				<input name="idcard" class="section__text" type="idcard"></input>
+			</view>
+			<view class="section">
+				<view class="section__title"><text>*</text>入场事由：</view>
+				<input name="rcsy" class="section__text"></input>
+			</view>
+			<view class="section">
+				<view class="section__title"><text>*</text>手机号：</view>
+				<input name="sjh" class="section__text" type="number"></input>
+			</view>
+			<view class="section">
+				<view class="section__title"><text>*</text>接洽部门：</view>
+				<picker bindchange="bindPickerChange" name="jqbm" value="{{jqbmstr}}" range="{{bmarray}}">
+					<view class="section__text">
+						{{jqbmstr}}
+					</view>
+				</picker>
+			</view>
+			<view class="section">
+				<view class="section__title"><text>*</text>接洽人：</view>
+				<input name="jqr" class="section__text"></input>
+			</view>
+			<button form-type="submit" class="subbtn">提交</button>
+		</form>
+
+	</view>
+	<view class="tipwindow" wx:if="{{instrue.code==0&&instrue}}" wx:key="this">
+		<image src="https://6479-dylhsh-fkglxt-fk-1302766816.tcb.qcloud.la/images/ok.png?sign=90dfb370439e28a00160b8bf74f14a26&t=1596252080" class="icon"></image>
+		<view class="tip">提交成功！</view>
+	</view>
+	<view class="tipwindow" wx:if="{{instrue.code!=0&&instrue}}" wx:key="this">
+		<image src="https://6479-dylhsh-fkglxt-fk-1302766816.tcb.qcloud.la/images/error.png?sign=db7e2aae3fdcd47c8da4048ee8fbab7e&t=1596252609" class="icon"></image>
+		<view class="tip">{{instrue.msg}}</view>
+	</view>
+</view>
+<view class="tipwindow" wx:if="{{!islogin}}" wx:key="this">
+	<image src="https://6479-dylhsh-fkglxt-fk-1302766816.tcb.qcloud.la/images/error.png?sign=db7e2aae3fdcd47c8da4048ee8fbab7e&t=1596252609" class="icon"></image>
+	<view class="tip"> 请登录后操作！</view>
+</view>

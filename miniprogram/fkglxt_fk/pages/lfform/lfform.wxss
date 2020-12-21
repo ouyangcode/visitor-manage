@@ -1,0 +1,11 @@
+/* pages/lfform/lfform.wxss */
+page{background-color: #eee;}
+.window{padding: 10px;}
+.title{text-align: center;line-height: 22px;font-weight: bolder;padding-top: 20px;border-bottom: 3px solid rgb(0, 177, 162);}
+.section__title{font-weight: bolder;padding-left: 5px;}
+.section__text{line-height: 46px;margin: 5px auto 30px auto;background-color: white;height: 46px;padding-left: 20px;}
+.subbtn{width: 80%;height: 45px;background-color: green;border-radius: 20px;border: 1px solid #000;color: #eee;}
+.tip{text-align: center;font-size: 36px;margin-top: 20px;}
+.icon{width: 200px;height: 200px;margin: 0 auto;}
+.tipwindow{margin: 200px auto;text-align: center;}
+text{color: red;}

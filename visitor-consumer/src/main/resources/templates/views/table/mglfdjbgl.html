@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>来访记录总览</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" th:href="@{/layuiadmin/layui/css/layui.css}" media="all">
+  <link rel="stylesheet" th:href="@{/layuiadmin/style/admin.css}" media="all">
+</head>
+<body>
+
+<div class="layui-card layadmin-header">
+  <div class="layui-breadcrumb" lay-filter="breadcrumb">
+    <a><cite>管理中心</cite></a>
+    <a><cite>来访记录总览</cite></a>
+  </div>
+</div>
+
+<div class="layui-fluid">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md12">
+      <div class="layui-card">
+        <div class="layui-card-header card-title">来访记录总览</div>
+        <div class="layui-card-body">
+          <form class="layui-form" lay-filter="component-form-group" id="search_submits" onsubmit="return false">
+            <div class="layui-inline">
+              <label class="layui-form-label">客户姓名：</label>
+              <div class="layui-input-inline">
+                <input type="text" class="layui-input" id="khname" name="khname" placeholder="请输入客户姓名"  width="80px">
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">身份证号：</label>
+              <div class="layui-input-inline">
+                <input type="text" class="layui-input" id="idcard" name="idcard" placeholder="请输入客户身份证号"  width="80px">
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">来访日期：</label>
+              <div class="layui-input-inline">
+                <input type="text" class="layui-input" id="firsttime" name="firsttime" width="80px">
+              </div>
+            </div>
+            <div class="layui-inline">
+              <button class="layui-btn" lay-submit="search_submits" lay-filter="reloadlst_submit">查询</button>
+            </div>
+            <div class="layui-inline">
+              <a class="layui-btn btn-add btn-default" id="export">导出数据</a>
+            </div>
+            <table class="layui-hide" id="test-table-cellEdit" lay-filter="test-table-cellEdit"></table>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script th:src="@{/layuiadmin/layui/layui.js}"></script>
+<script th:inline="none">
+  var datelimit;
+  layui.config({
+    base: '/layuiadmin/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'table','laydate','form'], function(){
+    var table = layui.table;
+    var loading = layer.load();
+    var laydate = layui.laydate;
+    var form = layui.form;
+    var $ = layui.$;
+    laydate.render({
+      elem: '#firsttime' //指定元素
+      ,range: true
+      ,format: 'yyyy-MM-dd' //可任意组合
+      ,calendar: true
+      ,done: function(value, date, endDate){
+        datelimit = value;
+      }
+    });
+
+    var exportData;
+    var tb = table.render({
+      elem: '#test-table-cellEdit'
+      ,url: "/getlfdjbList"
+      ,height: 'full-150'
+      ,cols: [[
+        {field:'id', title:'来访编号', width:120, sort: true}
+        ,{field:'lfrq', title:'来访日期', width:120, sort: true}
+        ,{field:'jcsj', title:'进厂时间',width:160,  sort:true}
+        ,{field:'djy', title:'登记员', width: 120,sort:true}
+        ,{field:'khdw', title:'客户单位',width: 160,sort:true}
+        ,{field:'cph', title:'车牌号',width:120,  sort:true}
+        ,{field:'kkhxm', title:'客户姓名', width: 160,sort:true}
+        ,{field:'idcard', title:'身份证号', width: 260,sort:true}
+        ,{field:'rcsy', title:'入场事由',width: 160,sort:true}
+        ,{field:'aqcs', title:'安全措施',width:160,  sort:true}
+        ,{field:'zkwp', title:'暂扣物品', width: 160,sort:true}
+        ,{field:'cwgbh', title:'储物柜编号',width: 160,sort:true}
+        ,{field:'sjh', title:'手机号',width:120,  sort:true}
+        ,{field:'jqbm', title:'接洽部门', width: 160,sort:true}
+        ,{field:'jqr', title:'接洽人',width: 120,sort:true}
+        ,{field:'ccsj', title:'出场时间',width:160,  sort:true}
+        ,{field:'lfryvxid', title:'来访人员微信编号', width: 220,sort:true}
+        ,{field:'sfqylf', title:'是否确认来访',width: 220,sort:true}
+        ,{field:'qrrvxid', title:'接洽人微信编号', width: 220,sort:true}
+        ,{field:'sfjslc', title:'是否结束流程',width: 220,sort:true}
+      ]]
+     , done: function (res, curr, count) {
+              layer.close(loading);
+              exportData = res.data;
+          }
+    });
+       $("#export").click(function(){
+          table.exportFile(tb.config.id,exportData, 'xls','来访登记表由门岗导出');
+      });
+      form.on('submit(reloadlst_submit)', function (data) {
+      //搜索条件
+          var searchdata = data.field;
+          var khname = searchdata.khname;
+          var idcard = searchdata.idcard;
+          tb.reload({
+              where:{
+                  khname:khname,
+                  datelimit:datelimit,
+                  inidcard:idcard
+              }
+          });
+      });
+  });
+
+</script>
+</body>
+</html>

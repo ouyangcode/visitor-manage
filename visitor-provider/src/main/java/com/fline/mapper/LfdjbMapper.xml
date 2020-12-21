@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fline.mapper.LfdjbMapper">
+  <resultMap id="BaseResultMap" type="com.fline.model.Visitor">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="lfrq" jdbcType="TIMESTAMP" property="lfrq" />
+    <result column="jcsj" jdbcType="VARCHAR" property="jcsj" />
+    <result column="djy" jdbcType="VARCHAR" property="djy" />
+    <result column="khdw" jdbcType="VARCHAR" property="khdw" />
+    <result column="cph" jdbcType="VARCHAR" property="cph" />
+    <result column="khxm" jdbcType="VARCHAR" property="khxm" />
+    <result column="rcsy" jdbcType="VARCHAR" property="rcsy" />
+    <result column="aqcs" jdbcType="VARCHAR" property="aqcs" />
+    <result column="zkwp" jdbcType="VARCHAR" property="zkwp" />
+    <result column="cwgbh" jdbcType="VARCHAR" property="cwgbh" />
+    <result column="sjh" jdbcType="VARCHAR" property="sjh" />
+    <result column="jqbm" jdbcType="VARCHAR" property="jqbm" />
+    <result column="jqr" jdbcType="VARCHAR" property="jqr" />
+    <result column="ccsj" jdbcType="TIMESTAMP" property="ccsj" />
+    <result column="lfryvxid" jdbcType="INTEGER" property="lfryvxid" />
+    <result column="sfqylf" jdbcType="INTEGER" property="sfqylf" />
+    <result column="qrrvxid" jdbcType="INTEGER" property="qrrvxid" />
+    <result column="sfjslc" jdbcType="INTEGER" property="sfjslc" />
+    <result column="idcard" jdbcType="VARCHAR" property="idcard" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, lfrq, jcsj, djy, khdw, cph, khxm, rcsy, aqcs, zkwp, cwgbh, sjh, jqbm, jqr, ccsj, 
+    lfryvxid, sfqylf, qrrvxid, sfjslc, idcard
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from visitor
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+    <select id="getLfdjbList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from visitor
+        order by lfrq desc
+    </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from visitor
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fline.model.Visitor">
+    insert into visitor (id, lfrq, jcsj,
+      djy, khdw, cph, khxm, 
+      rcsy, aqcs, zkwp, cwgbh, 
+      sjh, jqbm, jqr, ccsj, 
+      lfryvxid, sfqylf, qrrvxid, 
+      sfjslc,idcard)
+    values (#{id,jdbcType=INTEGER}, #{lfrq,jdbcType=TIMESTAMP}, #{jcsj,jdbcType=VARCHAR}, 
+      #{djy,jdbcType=VARCHAR}, #{khdw,jdbcType=VARCHAR}, #{cph,jdbcType=VARCHAR}, #{khxm,jdbcType=VARCHAR}, 
+      #{rcsy,jdbcType=VARCHAR}, #{aqcs,jdbcType=VARCHAR}, #{zkwp,jdbcType=VARCHAR}, #{cwgbh,jdbcType=VARCHAR}, 
+      #{sjh,jdbcType=VARCHAR}, #{jqbm,jdbcType=VARCHAR}, #{jqr,jdbcType=VARCHAR}, #{ccsj,jdbcType=TIMESTAMP}, 
+      #{lfryvxid,jdbcType=INTEGER}, #{sfqylf,jdbcType=INTEGER}, #{qrrvxid,jdbcType=INTEGER}, 
+      #{sfjslc,jdbcType=INTEGER}, #{idcard,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fline.model.Visitor">
+    insert into visitor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="lfrq != null">
+        lfrq,
+      </if>
+      <if test="jcsj != null">
+        jcsj,
+      </if>
+      <if test="djy != null">
+        djy,
+      </if>
+      <if test="khdw != null">
+        khdw,
+      </if>
+      <if test="cph != null">
+        cph,
+      </if>
+      <if test="khxm != null">
+        khxm,
+      </if>
+      <if test="rcsy != null">
+        rcsy,
+      </if>
+      <if test="aqcs != null">
+        aqcs,
+      </if>
+      <if test="zkwp != null">
+        zkwp,
+      </if>
+      <if test="cwgbh != null">
+        cwgbh,
+      </if>
+      <if test="sjh != null">
+        sjh,
+      </if>
+      <if test="jqbm != null">
+        jqbm,
+      </if>
+      <if test="jqr != null">
+        jqr,
+      </if>
+      <if test="ccsj != null">
+        ccsj,
+      </if>
+      <if test="lfryvxid != null">
+        lfryvxid,
+      </if>
+      <if test="sfqylf != null">
+        sfqylf,
+      </if>
+      <if test="qrrvxid != null">
+        qrrvxid,
+      </if>
+      <if test="sfjslc != null">
+        sfjslc,
+      </if>
+      <if test="idcard != null">
+        idcard,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="lfrq != null">
+        #{lfrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jcsj != null">
+        #{jcsj,jdbcType=VARCHAR},
+      </if>
+      <if test="djy != null">
+        #{djy,jdbcType=VARCHAR},
+      </if>
+      <if test="khdw != null">
+        #{khdw,jdbcType=VARCHAR},
+      </if>
+      <if test="cph != null">
+        #{cph,jdbcType=VARCHAR},
+      </if>
+      <if test="khxm != null">
+        #{khxm,jdbcType=VARCHAR},
+      </if>
+      <if test="rcsy != null">
+        #{rcsy,jdbcType=VARCHAR},
+      </if>
+      <if test="aqcs != null">
+        #{aqcs,jdbcType=VARCHAR},
+      </if>
+      <if test="zkwp != null">
+        #{zkwp,jdbcType=VARCHAR},
+      </if>
+      <if test="cwgbh != null">
+        #{cwgbh,jdbcType=VARCHAR},
+      </if>
+      <if test="sjh != null">
+        #{sjh,jdbcType=VARCHAR},
+      </if>
+      <if test="jqbm != null">
+        #{jqbm,jdbcType=VARCHAR},
+      </if>
+      <if test="jqr != null">
+        #{jqr,jdbcType=VARCHAR},
+      </if>
+      <if test="ccsj != null">
+        #{ccsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lfryvxid != null">
+        #{lfryvxid,jdbcType=INTEGER},
+      </if>
+      <if test="sfqylf != null">
+        #{sfqylf,jdbcType=INTEGER},
+      </if>
+      <if test="qrrvxid != null">
+        #{qrrvxid,jdbcType=INTEGER},
+      </if>
+      <if test="sfjslc != null">
+        #{sfjslc,jdbcType=INTEGER},
+      </if>
+      <if test="idcard != null">
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fline.model.Visitor">
+    update visitor
+    <set>
+      <if test="lfrq != null">
+        lfrq = #{lfrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jcsj != null">
+        jcsj = #{jcsj,jdbcType=VARCHAR},
+      </if>
+      <if test="djy != null">
+        djy = #{djy,jdbcType=VARCHAR},
+      </if>
+      <if test="khdw != null">
+        khdw = #{khdw,jdbcType=VARCHAR},
+      </if>
+      <if test="cph != null">
+        cph = #{cph,jdbcType=VARCHAR},
+      </if>
+      <if test="khxm != null">
+        khxm = #{khxm,jdbcType=VARCHAR},
+      </if>
+      <if test="rcsy != null">
+        rcsy = #{rcsy,jdbcType=VARCHAR},
+      </if>
+      <if test="aqcs != null">
+        aqcs = #{aqcs,jdbcType=VARCHAR},
+      </if>
+      <if test="zkwp != null">
+        zkwp = #{zkwp,jdbcType=VARCHAR},
+      </if>
+      <if test="cwgbh != null">
+        cwgbh = #{cwgbh,jdbcType=VARCHAR},
+      </if>
+      <if test="sjh != null">
+        sjh = #{sjh,jdbcType=VARCHAR},
+      </if>
+      <if test="jqbm != null">
+        jqbm = #{jqbm,jdbcType=VARCHAR},
+      </if>
+      <if test="jqr != null">
+        jqr = #{jqr,jdbcType=VARCHAR},
+      </if>
+      <if test="ccsj != null">
+        ccsj = #{ccsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lfryvxid != null">
+        lfryvxid = #{lfryvxid,jdbcType=INTEGER},
+      </if>
+      <if test="sfqylf != null">
+        sfqylf = #{sfqylf,jdbcType=INTEGER},
+      </if>
+      <if test="qrrvxid != null">
+        qrrvxid = #{qrrvxid,jdbcType=INTEGER},
+      </if>
+      <if test="sfjslc != null">
+        sfjslc = #{sfjslc,jdbcType=INTEGER},
+      </if>
+      <if test="idcard != null">
+        idcard = #{idcard,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fline.model.Visitor">
+    update visitor
+    set lfrq = #{lfrq,jdbcType=TIMESTAMP},
+      jcsj = #{jcsj,jdbcType=VARCHAR},
+      djy = #{djy,jdbcType=VARCHAR},
+      khdw = #{khdw,jdbcType=VARCHAR},
+      cph = #{cph,jdbcType=VARCHAR},
+      khxm = #{khxm,jdbcType=VARCHAR},
+      rcsy = #{rcsy,jdbcType=VARCHAR},
+      aqcs = #{aqcs,jdbcType=VARCHAR},
+      zkwp = #{zkwp,jdbcType=VARCHAR},
+      cwgbh = #{cwgbh,jdbcType=VARCHAR},
+      sjh = #{sjh,jdbcType=VARCHAR},
+      jqbm = #{jqbm,jdbcType=VARCHAR},
+      jqr = #{jqr,jdbcType=VARCHAR},
+      ccsj = #{ccsj,jdbcType=TIMESTAMP},
+      lfryvxid = #{lfryvxid,jdbcType=INTEGER},
+      sfqylf = #{sfqylf,jdbcType=INTEGER},
+      qrrvxid = #{qrrvxid,jdbcType=INTEGER},
+      sfjslc = #{sfjslc,jdbcType=INTEGER}
+      idcard = #{idcard,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

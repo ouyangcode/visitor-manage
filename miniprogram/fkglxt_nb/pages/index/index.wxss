@@ -1,0 +1,23 @@
+/* pages/login/login.wxss */
+page{background-color: rgb(255, 255, 255);}
+button{background-color: rgb(0, 204, 255);border: 1px solid grey;border-radius: 30px;width:90%;height: 45px;line-height: 45px;margin-top: 20px;}
+.title{font-weight: bolder;font-size: 32px;line-height: 52px;text-align: center;
+color: rgb(255, 255, 255);-webkit-box-reflect: below 0px -webkit-linear-gradient(transparent,transparent 50%,rgba(255, 0, 0, 1)); -webkit-text-stroke: 1.0px #000;}
+.str1{border-bottom: 3px solid rgb(47, 172, 255);}
+.inputwindow{padding-left: 30px;border-radius: 30px;border: 1px solid #999;background-color: rgba(240, 240, 240, 0.3);height: 45px;line-height: 45px;margin: 20px auto;width: 80%;font-weight: bold;}
+.logintitle{margin: 20px auto;font-size: 22px;font-weight: bolder;text-align: center;border-top: 1px solid #eee;padding-top: 20px;}
+.box {padding-top: 20%;width: 100%;height: 100px;border-radius: 0 0 100% 100% / 0 0 20% 20%;background-image: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1596166994694&di=c52ac13888aebc6862044b6fcb56ad06&imgtype=0&src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201503%2F14%2F012828j2hu1yqu5daudm21.jpg");background-size:cover;margin:0 auto;}
+image{width: 40px;height: 40px;}
+.tocenter{text-align: center}
+.toflex{display: flex;}
+.top20{margin-top: 20px;}
+.lefttip{position:absolute;left: 10%;color: blue;font-weight: bold;}
+.righttip{position:absolute;right: 10%;color: orange;font-weight: bold;}
+.bottom20{position:absolute;bottom: 20px;font-size: 12px;}
+.righttline{height: 2px;background-color: #eee;margin-right: -30px;margin-top: 20px;}
+.leftline{height: 2px;background-color: #eee;margin-left: -30px;margin-top: 20px;}
+.height60{height: 60px;}
+.width50{width: 50%;}
+.width100{width: 100%;}
+text{line-height: 16px;font-size: 16px;}
+.info{color: red;padding-left: 10%;}

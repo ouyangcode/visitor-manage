@@ -1,0 +1,17 @@
+<!--pages/first/first.wxml-->
+<text class="tip">请注意：本次为您首次登陆需要设置个人信息，请务必确保信息正确，这将影响到您消息的接收和处理！</text>
+<form bindsubmit="upuserinfo">
+	<view class="section">
+		<view class="section__title"><text>*</text>所在部门：</view>
+		<picker bindchange="bindPickerChange" name="jqbm" value="{{jqbmstr}}" range="{{bmarray}}">
+			<view class="section__text">
+				{{jqbmstr}}
+			</view>
+		</picker>
+	</view>
+	<view class="section">
+		<view class="section__title"><text>*</text>姓名：</view>
+		<input name="khxm" class="section__text"></input>
+	</view>
+	<button form-type="submit" class="subbtn">提交</button>
+</form>

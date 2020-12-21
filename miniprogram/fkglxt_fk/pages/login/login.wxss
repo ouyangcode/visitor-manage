@@ -1,0 +1,6 @@
+/* pages/login/login.wxss */
+page{background-image: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1596166994694&di=c52ac13888aebc6862044b6fcb56ad06&imgtype=0&src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201503%2F14%2F012828j2hu1yqu5daudm21.jpg");background-repeat: no-repeat;}
+.loginbtn{background-color: rgb(0, 204, 255);border: 1px solid grey;border-radius: 80px;width: 76%;height: 60px;line-height: 40px;margin-top: 20%;}
+.title{font-weight: bolder;font-size: 36px;line-height: 52px;height: 52px;text-align: center;margin-top: 20%;}
+.usericon{margin: 30px auto;width: 160px;border-radius: 50%;overflow:hidden;height: 160px;}
+.username{margin-top: 30px;text-align: center;font-size: 24px;font-weight: bolder;}
